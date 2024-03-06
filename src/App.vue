@@ -6,9 +6,9 @@
         <el-button type="text">Есептеулер тарихын көру</el-button>
       </div>
       <div class="px-3 py-5 flex flex-col">
-      <el-upload>
-        <el-button type="primary" round size="small" plain>Кіріс ақпараттарды таңдау</el-button>
-      </el-upload>
+<!--      <el-upload>-->
+<!--        <el-button type="primary" round size="small" plain>Кіріс ақпараттарды таңдау</el-button>-->
+<!--      </el-upload>-->
         <div class="mt-3">
         <el-button @click="show=!show" type="success" size="small" round>Есептеуді бастау</el-button>
         </div>
@@ -17,7 +17,7 @@
     <div class="flex-grow px-5 py-4 h-full overflow-y-auto" v-loading="loading">
         <h3>{{ typeOfModel }} модель бойынша есептеу жүргізілді</h3>
         <p class="text-gray-500">Кіріс ақпараттар: 
-          <span v-for="item in inputLabels[typeOfModel]" :key="item.title">{{ item.title }}</span>
+          <span v-for="item in inputLabels[typeOfModel]" :key="item.title">{{ item.title_kz }}</span>
         </p>
         <div id="XZsurface"></div>
         <div id="Roka"></div>
@@ -27,19 +27,19 @@
       <div id="nuWaterRight"></div>
     </div>
   </div>
-  <el-dialog title="Ақпаратты енгізу" v-model="show" top="20px">
-    <el-form :model="form" label-position="top">
+  <el-drawer title="Ақпаратты енгізу" v-model="show" top="20px" size="50%">
+    <el-form class="mx-3" :model="form" label-position="top">
       <el-form-item label="Model:">
         <el-select v-model="form.typeOfModel" class="w-full">
-          <el-option v-for="model in models"  :key="model.id" :value="model.id" :label="model.title"></el-option>
+          <el-option v-for="model in models"  :key="model.id" :value="model.id" :label="model.title_kz"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item v-for="inputs in inputLabels[form.typeOfModel]" :key="inputs.title" :label="inputs.title">
+      <el-form-item v-for="inputs in inputLabels[form.typeOfModel]" :key="inputs.title" :label="inputs.title_kz">
         <el-input v-model="form[inputs.key]"></el-input>
       </el-form-item>
       <el-button @click="calculateResult" type="success" round size="small">Есептеу</el-button>
     </el-form>
-  </el-dialog>
+  </el-drawer>
 </template>
 
 <script>
@@ -71,92 +71,109 @@ export default {
       xAxis: [],
       typeOfModel: 3,
       models: [
-        {title: 'relief', id: 1},
-        {title: 'water on the left', id: 2},
-        {title: 'two water surfaces', id: 3},
-        {title: 'two water surfaces, damb on the base', id: 4},
-        {title: 'water on the rigth and base', id: 5},
-        {title: 'one water surfaces, damb on the base', id: 6},
-        {title: 'two water spaces, leaking and base', id: 7}
+        {title: 'relief', id: 1, title_kz: 'Реліеф'},
+        {title: 'water on the left', id: 2, title_kz: 'Сол алдында су'},
+        {title: 'two water surfaces', id: 3, title_kz: 'Екі су торында'},
+        {title: 'two water surfaces, damb on the base', id: 4, title_kz: 'Екі су торы, базада бақылау'},
+        {title: 'water on the right and base', id: 5, title_kz: 'Оң тарапта және базада су'},
+        {title: 'one water surface, damb on the base', id: 6, title_kz: 'Бір су торы, базада бақылау'},
+        {title: 'two water spaces, leaking and base', id: 7, title_kz: 'Екі су босығы, сыртқы және базада бақылау'}
       ],
-      inputLabels: {
-        1: [
-          {
-            title: 'Enter AB (meters)',
-            key: 'AbMetres',
-          },
-          {
-            title: 'Enter position of A point from relief start point (meters)',
-            key: 'reliefStartPoint'
-          },
-          {
-            title: 'Enter nks - number of segments between MN; 1<nks<=3',
-            key: 'nks'
-          },
-        ],
-        2: [
-          {
-            title: 'Enter AB (meters)',
-            key: 'AbMetres',
-          },
-          {
-            title: 'Enter position of A point from relief start point (meters)',
-            key: 'reliefStartPoint'
-          },
-          {
-            title: 'Enter nks - number of segments between MN; 1<nks<=3',
-            key: 'nks'
-          },
-          {
-            title: 'Heght of the water at left side(m) <   16.6227436',
-            key: 'heightOfWaterAtLeftSide'
-          },
-        ],
-        3: [
-          {
-            title: 'Enter AB (meters)',
-            key: 'AbMetres',
-          },
-          {
-            title: 'Enter position of A point from relief start point (meters)',
-            key: 'reliefStartPoint'
-          },
-          {
-            title: 'Enter nks - number of segments between MN; 1<nks<=3',
-            key: 'nks'
-          },
-          {
-            title: 'Heght of the water at left side(m) <   16.6227436',
-            key: 'heightOfWaterAtLeftSide'
-          },
-          {
-            title: 'Heght of the water at the right side(m)>2.00000000and<18.37763026',
-            key: 'heightOfWaterAtRightSide'
-          }
-        ],
-        4: [
-          {
-            title: 'Enter AB (meters)',
-            key: 'AbMetres',
-          },
-          {
-            title: 'Enter position of A point from relief start point (meters)',
-            key: 'reliefStartPoint'
-          },
-          {
-            title: 'Enter nks - number of segments between MN; 1<nks<=3',
-            key: 'nks'
-          },
-          {
-            title: 'Heght of the water at left side(m) <   16.6227436',
-            key: 'heightOfWaterAtLeftSide'
-          },
-          {
-            title: 'Heght of the water at the right side(m)>2.00000000and<18.37763026',
-            key: 'heightOfWaterAtRightSide'
-          }
-        ],
+      inputLabels:{
+      1: [
+      {
+        "title": "Enter AB (meters)",
+        "title_kz": "АВ енгізіңіз (метр)",
+        "key": "AbMetres"
       },
+      {
+        "title": "Enter position of A point from relief start point (meters)",
+        "title_kz": "Орындық бастау нүктесінен А нүктесіне орналасқан орын (метр)",
+        "key": "reliefStartPoint"
+      },
+      {
+        "title": "Enter nks - number of segments between MN; 1<nks<=3",
+        "title_kz": "nks - MN арасындағы сегменттер санын енгізіңіз; 1<nks<=3",
+        "key": "nks"
+      }
+    ],
+        2: [
+      {
+        "title": "Enter AB (meters)",
+        "title_kz": "АВ енгізіңіз (метр)",
+        "key": "AbMetres"
+      },
+      {
+        "title": "Enter position of A point from relief start point (meters)",
+        "title_kz": "Орындық бастау нүктесінен А нүктесіне орналасқан орын (метр)",
+        "key": "reliefStartPoint"
+      },
+      {
+        "title": "Enter nks - number of segments between MN; 1<nks<=3",
+        "title_kz": "nks - MN арасындағы сегменттер санын енгізіңіз; 1<nks<=3",
+        "key": "nks"
+      },
+      {
+        "title": "Heght of the water at left side(m) <   16.6227436",
+        "title_kz": "Сол жақтагы суғақтың биіктігі (м) <   16.6227436",
+        "key": "heightOfWaterAtLeftSide"
+      }
+    ],
+        3: [
+      {
+        "title": "Enter AB (meters)",
+        "title_kz": "АВ енгізіңіз (метр)",
+        "key": "AbMetres"
+      },
+      {
+        "title": "Enter position of A point from relief start point (meters)",
+        "title_kz": "Орындық бастау нүктесінен А нүктесіне орналасқан орын (метр)",
+        "key": "reliefStartPoint"
+      },
+      {
+        "title": "Enter nks - number of segments between MN; 1<nks<=3",
+        "title_kz": "nks - MN арасындағы сегменттер санын енгізіңіз; 1<nks<=3",
+        "key": "nks"
+      },
+      {
+        "title": "Heght of the water at left side(m) <   16.6227436",
+        "title_kz": "Сол жақтагы суғақтың биіктігі (м) <   16.6227436",
+        "key": "heightOfWaterAtLeftSide"
+      },
+      {
+        "title": "Heght of the water at the right side(m)>2.00000000and<18.37763026",
+        "title_kz": "Оң жақтагы суғақтың биіктігі (м) >2.00000000 әрі <18.37763026",
+        "key": "heightOfWaterAtRightSide"
+      }
+    ],
+        4: [
+      {
+        "title": "Enter AB (meters)",
+        "title_kz": "АВ енгізіңіз (метр)",
+        "key": "AbMetres"
+      },
+      {
+        "title": "Enter position of A point from relief start point (meters)",
+        "title_kz": "Орындық бастау нүктесінен А нүктесіне орналасқан орын (метр)",
+        "key": "reliefStartPoint"
+      },
+      {
+        "title": "Enter nks - number of segments between MN; 1<nks<=3",
+        "title_kz": "nks - MN арасындағы сегменттер санын енгізіңіз; 1<nks<=3",
+        "key": "nks"
+      },
+      {
+        "title": "Heght of the water at left side(m) <   16.6227436",
+        "title_kz": "Сол жақтагы суғақтың биіктігі (м) <   16.6227436",
+        "key": "heightOfWaterAtLeftSide"
+      },
+      {
+        "title": "Heght of the water at the right side(m)>2.00000000and<18.37763026",
+        "title_kz": "Оң жақтагы суғақтың биіктігі (м) >2.00000000 әрі <18.37763026",
+        "key": "heightOfWaterAtRightSide"
+      }
+    ]
+    },
       colorScale: null
     }
   },
