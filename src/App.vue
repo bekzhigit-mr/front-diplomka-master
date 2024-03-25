@@ -27,7 +27,7 @@
       <div id="nuWaterRight"></div>
     </div>
   </div>
-  <el-drawer title="Ақпаратты енгізу" v-model="show" top="20px" size="50%">
+  <el-drawer title="Ақпаратты енгізу" v-model="show" top="20px" size="40%">
     <el-form class="mx-3" :model="form" label-position="top">
       <el-form-item label="Model:">
         <el-select v-model="form.typeOfModel" class="w-full">
