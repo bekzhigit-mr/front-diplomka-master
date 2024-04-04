@@ -193,11 +193,92 @@ export default {
     goToMain() {
       this.$router.push({ name: 'main'})
     },
-    drawCategoryChart(id, {data, xAxisData, title, yTitle}) {
-      console.log(xAxisData)
+    // drawCategoryChart(id, {data, xAxisData, title, yTitle}) {
+    //   console.log(xAxisData)
+    //   Highcharts.chart(id, {
+    //     chart: {
+    //       type: 'spline'
+    //     },
+    //     title: {
+    //       text: title
+    //     },
+    //     xAxis: {
+    //       accessibility: {
+    //         description: 'X, m'
+    //       },
+    //       categories: xAxisData,
+    //       labels: {
+    //         formatter: function() {
+    //           return Highcharts.numberFormat(this.value, 0);
+    //         }
+    //       }
+    //     },
+    //     legend: {
+    //       enabled: true
+    //     },
+    //     yAxis: {
+    //       title: {
+    //         text: yTitle
+    //       },
+    //     },
+    //     plotOptions: {
+    //       series: {
+    //         showInLegend: true
+    //       },
+    //       spline: {
+    //         marker: {
+    //           radius: 4,
+    //           lineColor: '#666666',
+    //           lineWidth: 1
+    //         }
+    //       }
+    //     },
+    //     series: data
+    //   });
+    // },
+    // drawCategoryChart(id, {data, xAxisData, title, yTitle}) {
+    //   console.log(xAxisData)
+    //   Highcharts.chart(id, {
+    //     chart: {
+    //       type: 'column' // Change the chart type here
+    //     },
+    //     title: {
+    //       text: title
+    //     },
+    //     xAxis: {
+    //       accessibility: {
+    //         description: 'X, m'
+    //       },
+    //       categories: xAxisData,
+    //       labels: {
+    //         formatter: function() {
+    //           return Highcharts.numberFormat(this.value, 0);
+    //         }
+    //       }
+    //     },
+    //     legend: {
+    //       enabled: true
+    //     },
+    //     yAxis: {
+    //       title: {
+    //         text: yTitle
+    //       },
+    //     },
+    //     plotOptions: {
+    //       series: {
+    //         showInLegend: true
+    //       },
+    //       column: { // Change plotOptions for the column type
+    //         borderWidth: 0 // Add any specific options for column type
+    //       }
+    //     },
+    //     series: data
+    //   });
+    // },
+    drawCategoryChart(id, { data, xAxisData, title, yTitle }) {
       Highcharts.chart(id, {
         chart: {
-          type: 'spline'
+          type: 'column', // Change this to the desired type, e.g., 'bar', 'line', 'area', etc.
         },
         title: {
           text: title
@@ -208,7 +289,7 @@ export default {
           },
           categories: xAxisData,
           labels: {
-            formatter: function() {
+            formatter: function () {
               return Highcharts.numberFormat(this.value, 0);
             }
           }
@@ -225,12 +306,8 @@ export default {
           series: {
             showInLegend: true
           },
-          spline: {
-            marker: {
-              radius: 4,
-              lineColor: '#666666',
-              lineWidth: 1
-            }
+          column: { // Adjust options based on the desired type, e.g., 'column', 'bar', 'line', etc.
+            colorByPoint: true // This is an example option specific to column chart
           }
         },
         series: data
