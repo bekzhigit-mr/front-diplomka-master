@@ -1,6 +1,9 @@
 <script>
+import BoxView from "@/components/box.vue";
+
 export default {
   name: 'MainView',
+  components: {BoxView},
   methods: {
     goToModel() {
       this.$router.push({ name: "model"})
@@ -79,6 +82,7 @@ export default {
           </div>
         </div>
       </div>
+      <BoxView></BoxView>
     </div>
   </div>
 </template>

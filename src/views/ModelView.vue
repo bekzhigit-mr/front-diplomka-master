@@ -1,10 +1,9 @@
 <template>
-  <div class="flex h-full" style="height: 100vh">
+  <div class="highchart flex h-full" style="height: 100vh">
     <div class="text-left py-3 w-81 border-0 border-r border-solid border-gray-200 h-full flex-shrink-0">
       <div class="border-0 border-b border-solid border-gray-200 px-3 py-3">
         <p class="w-72">Дамба мен бөгеттердің онлайн бақылау платформасына қош келдіңіз</p>
         <el-button type="text">Есептеулер тарихын көру</el-button>
-        <el-button @click="goToMain" type="text">Main</el-button>
       </div>
       <div class="px-3 py-5 flex flex-col">
         <!--      <el-upload>-->
@@ -16,17 +15,42 @@
       </div>
     </div>
     <div class="flex-grow px-5 py-4 h-full overflow-y-auto" v-loading="loading">
-      <page-header @back="$router.push({ name: 'home' })" :title="pageTitle"></page-header>
-      <h3>{{ typeOfModel }} модель бойынша есептеу жүргізілді</h3>
-      <p class="text-gray-500">Кіріс ақпараттар:
-        <span v-for="item in inputLabels[typeOfModel]" :key="item.title">{{ item.title_kz }}</span>
-      </p>
-      <div id="XZsurface"></div>
-      <div id="Roka"></div>
-      <div id="nuxk"></div>
-      <div id="nuxy"></div>
-      <div id="nuWaterLeft"></div>
-      <div id="nuWaterRight"></div>
+      <div class="bg-white">
+        <h3>{{ typeOfModel }} модель бойынша есептеу жүргізілді</h3>
+        <p class="text-gray-500">Кіріс ақпараттар:
+          <span v-for="item in inputLabels[typeOfModel]" :key="item.title">{{ item.title_kz }}</span>
+        </p>
+      </div>
+      <div class="h-full w-full p-2 pb-5 mb-10">
+        <div class="flex gap-x-5 mb-5">
+          <BoxView title="Дамбаның орналасу геометриясы"
+                   description="Бөгеттің геометриясы оның құрылымдық тұтастығын, суды ұстау қабілетін және тасқын қаупін азайтудағы жалпы тиімділігін анықтайды">
+            <div id="XZsurface"></div>
+          </BoxView>
+          <BoxView title="Айқын кедергі қисықтары"
+                   description="Айқын қарсылық қисықтары әдетте физика немесе жаттығу ғылымы сияқты салаларда қолданылатын қолданылған күш пен нәтижесіндегі қарсылық арасындағы байланысты бейнелейтін графика">
+            <div id="Roka"></div>
+          </BoxView>
+        </div>
+
+        <div class="flex gap-x-5 mb-5">
+          <BoxView title="Зарядтардың таралу жиіліктігі"
+                   description="The зарядтың таралу жиілігі электр зарядының белгілі бір кеңістікте таралу немесе шоғырлану тәсілін білдіреді, көбінесе осы кеңістіктегі зарядтардың тығыздығы немесе орналасуы тұрғысынан сипатталады.">
+            <div id="nuxk"></div>
+          </BoxView>
+          <BoxView title="Екінші ретті зарядтардың релъефтегі таралуы"
+                   description="Eкінші ретті зарядтардың таралуы электромагниттік құбылыстарды түсіну мен модельдеуде шешуші рөл атқаратын, қолданылатын электр өрістерінің нәтижесінде бетінде немесе материал ішінде индукцияланған электр зарядтарының кеңістіктік орналасуы мен концентрациясын білдіреді..">
+            <div id="nuxy"></div>
+          </BoxView>
+        </div>
+      </div>
+
+<!--      <div id="XZsurface"></div>-->
+<!--      <div id="Roka"></div>-->
+<!--      <div id="nuxk"></div>-->
+<!--      <div id="nuxy"></div>-->
+<!--      <div id="nuWaterLeft"></div>-->
+<!--      <div id="nuWaterRight"></div>-->
     </div>
   </div>
   <el-drawer title="Ақпаратты енгізу" v-model="show" top="20px" size="40%">
@@ -49,7 +73,7 @@ import Highcharts from 'highcharts';
 import enableExporting from 'highcharts/modules/exporting';
 import anychart from 'anychart';
 import axios from 'axios';
-import PageHeader from "@/components/PageHeader.vue";
+import BoxView from "@/components/box.vue";
 
 enableExporting(Highcharts);
 
@@ -57,7 +81,7 @@ enableExporting(Highcharts);
 export default {
   name: 'ModelView',
   components: {
-    PageHeader,
+    BoxView
   },
   data() {
     return {
@@ -181,104 +205,15 @@ export default {
       colorScale: null
     }
   },
-  computed: {
-    pageTitle() {
-      return "test";
-    },
-  },
   async mounted() {
     await this.getData();
   },
   methods: {
-    goToMain() {
-      this.$router.push({ name: 'main'})
-    },
-    // drawCategoryChart(id, {data, xAxisData, title, yTitle}) {
-    //   console.log(xAxisData)
-    //   Highcharts.chart(id, {
-    //     chart: {
-    //       type: 'spline'
-    //     },
-    //     title: {
-    //       text: title
-    //     },
-    //     xAxis: {
-    //       accessibility: {
-    //         description: 'X, m'
-    //       },
-    //       categories: xAxisData,
-    //       labels: {
-    //         formatter: function() {
-    //           return Highcharts.numberFormat(this.value, 0);
-    //         }
-    //       }
-    //     },
-    //     legend: {
-    //       enabled: true
-    //     },
-    //     yAxis: {
-    //       title: {
-    //         text: yTitle
-    //       },
-    //     },
-    //     plotOptions: {
-    //       series: {
-    //         showInLegend: true
-    //       },
-    //       spline: {
-    //         marker: {
-    //           radius: 4,
-    //           lineColor: '#666666',
-    //           lineWidth: 1
-    //         }
-    //       }
-    //     },
-    //     series: data
-    //   });
-    // },
-    // drawCategoryChart(id, {data, xAxisData, title, yTitle}) {
-    //   console.log(xAxisData)
-    //   Highcharts.chart(id, {
-    //     chart: {
-    //       type: 'column' // Change the chart type here
-    //     },
-    //     title: {
-    //       text: title
-    //     },
-    //     xAxis: {
-    //       accessibility: {
-    //         description: 'X, m'
-    //       },
-    //       categories: xAxisData,
-    //       labels: {
-    //         formatter: function() {
-    //           return Highcharts.numberFormat(this.value, 0);
-    //         }
-    //       }
-    //     },
-    //     legend: {
-    //       enabled: true
-    //     },
-    //     yAxis: {
-    //       title: {
-    //         text: yTitle
-    //       },
-    //     },
-    //     plotOptions: {
-    //       series: {
-    //         showInLegend: true
-    //       },
-    //       column: { // Change plotOptions for the column type
-    //         borderWidth: 0 // Add any specific options for column type
-    //       }
-    //     },
-    //     series: data
-    //   });
-    // },
-    drawCategoryChart(id, { data, xAxisData, title, yTitle }) {
+    drawCategoryChart(id, {data, xAxisData, title, yTitle}) {
+      console.log(xAxisData)
       Highcharts.chart(id, {
         chart: {
-          type: 'column', // Change this to the desired type, e.g., 'bar', 'line', 'area', etc.
+          type: 'spline'
         },
         title: {
           text: title
@@ -289,7 +224,7 @@ export default {
           },
           categories: xAxisData,
           labels: {
-            formatter: function () {
+            formatter: function() {
               return Highcharts.numberFormat(this.value, 0);
             }
           }
@@ -306,15 +241,19 @@ export default {
           series: {
             showInLegend: true
           },
-          column: { // Adjust options based on the desired type, e.g., 'column', 'bar', 'line', etc.
-            colorByPoint: true // This is an example option specific to column chart
+          spline: {
+            marker: {
+              radius: 4,
+              lineColor: '#666666',
+              lineWidth: 1
+            }
           }
         },
         series: data
       });
     },
     async calculateResult() {
-      await axios.post('/api/calculate', {
+      await axios.post('http://modeling.kz/api/calculate', {
         ...this.form
       });
       location.reload()
@@ -324,7 +263,7 @@ export default {
       colorScale.colors(['#00FF00', '#FFFF00', '#FF0000' ]);
       let chart = anychart.surface(chartData);
       chart.colorRange().enabled(true)
-          .colorLineSize(20)
+          .colorLineSize(10)
           .stroke('#000000')
           .ticks()
           .enabled(true)
@@ -442,8 +381,8 @@ export default {
       if(typeOfModel === 3) {
         dataSplineChart.push(XZwater2);
       }
-      this.createAnyChart('nuxk', matrix, 'Зарядтардың таралу жиіліктігі');
-      this.createAnyChart('nuxy', matrixy, 'Екінші ретті зарядтардың релъефтегі таралуы');
+      this.createAnyChart('nuxk', matrix, );
+      this.createAnyChart('nuxy', matrixy, );
       if([2, 3].includes(typeOfModel)) {
         this.createAnyChart('nuWaterLeft', matrixWaterLeft, 'Зарядтардың сол жақ жоғарғы бьефтегі таралуы');
       }
@@ -451,8 +390,8 @@ export default {
         this.createAnyChart('nuWaterRight', matrixWaterRight, 'Зарядтардың оң жақ төменгі бьефтегі таралуы');
       }
       console.log(xAxis.length, firstChart.length)
-      this.drawCategoryChart('XZsurface', {data: dataSplineChart, xAxisData: xAxis, title: 'Дамбаның орналасу геометриясы', yTitle: 'Z, м'})
-      this.drawCategoryChart('Roka', {data: [rokaChart], xAxisData: xAxisRoka, title: 'Айқын кедергі қисықтары', yTitle: 'ρ, Ом⋅м'})
+      this.drawCategoryChart('XZsurface', {data: dataSplineChart, xAxisData: xAxis, yTitle: 'Z, м'})
+      this.drawCategoryChart('Roka', {data: [rokaChart], xAxisData: xAxisRoka, yTitle: 'ρ, Ом⋅м'})
       console.log(dataSplineChart)
     }
   }
@@ -469,5 +408,9 @@ export default {
 }
 .anychart-ui-support {
   height: 500px !important;
+}
+
+.highchart {
+  background-color: #f9fafb;
 }
 </style>
