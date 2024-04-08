@@ -1,26 +1,29 @@
 <template>
-  <div class="highchart flex h-full" style="height: 100vh">
-    <div class="text-left py-3 w-81 border-0 border-r border-solid border-gray-200 h-full flex-shrink-0">
-      <div class="border-0 border-b border-solid border-gray-200 px-3 py-3">
-        <p class="w-72">Дамба мен бөгеттердің онлайн бақылау платформасына қош келдіңіз</p>
-        <el-button type="text">Есептеулер тарихын көру</el-button>
-      </div>
-      <div class="px-3 py-5 flex flex-col">
-        <!--      <el-upload>-->
-        <!--        <el-button type="primary" round size="small" plain>Кіріс ақпараттарды таңдау</el-button>-->
-        <!--      </el-upload>-->
-        <div class="mt-3">
-          <el-button @click="show=!show" type="success" size="small" round>Есептеуді бастау</el-button>
-        </div>
-      </div>
-    </div>
+  <div class="highchart h-full" style="height: 100vh"><div class="sticky top-0 bg-white flex items-end justify-between py-3 w-full z-10 border border-b-1 border-red-300 px-40">
+    <div class="bg-white">
+      <h3 class="text-gray-700">{{ typeOfModel }} модель бойынша есептеу жүргізілді</h3>
+      <p class="text-gray-500">Кіріс ақпараттар:
+        <span v-for="item in inputLabels[typeOfModel]" :key="item.title">{{ item.title_kz }}</span>
+      </p>
+    </div><div class="mt-3">
+    <el-button @click="show=!show" type="success" size="small" round>Есептеуді бастау</el-button>
+  </div>
+  </div>
+<!--    <div class="text-left py-3 w-81 border-0 border-r border-solid border-gray-200 h-full flex-shrink-0">-->
+<!--      <div class="border-0 border-b border-solid border-gray-200 px-3 py-3">-->
+<!--        <p class="w-72">Дамба мен бөгеттердің онлайн бақылау платформасына қош келдіңіз</p>-->
+<!--        <el-button type="text">Есептеулер тарихын көру</el-button>-->
+<!--      </div>-->
+<!--      <div class="px-3 py-5 flex flex-col">-->
+<!--        &lt;!&ndash;      <el-upload>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <el-button type="primary" round size="small" plain>Кіріс ақпараттарды таңдау</el-button>&ndash;&gt;-->
+<!--        &lt;!&ndash;      </el-upload>&ndash;&gt;-->
+<!--        <div class="mt-3">-->
+<!--          <el-button @click="show=!show" type="success" size="small" round>Есептеуді бастау</el-button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="flex-grow px-5 py-4 h-full overflow-y-auto" v-loading="loading">
-      <div class="bg-white">
-        <h3>{{ typeOfModel }} модель бойынша есептеу жүргізілді</h3>
-        <p class="text-gray-500">Кіріс ақпараттар:
-          <span v-for="item in inputLabels[typeOfModel]" :key="item.title">{{ item.title_kz }}</span>
-        </p>
-      </div>
       <div class="h-full w-full p-2 pb-5 mb-10">
         <div class="flex gap-x-5 mb-5">
           <BoxView title="Дамбаның орналасу геометриясы"
@@ -43,14 +46,24 @@
             <div id="nuxy"></div>
           </BoxView>
         </div>
+        <div class="flex gap-x-5 mb-5">
+        <BoxView title="Зарядтардың таралу жиіліктігі"
+                 description="The зарядтың таралу жиілігі электр зарядының белгілі бір кеңістікте таралу немесе шоғырлану тәсілін білдіреді, көбінесе осы кеңістіктегі зарядтардың тығыздығы немесе орналасуы тұрғысынан сипатталады.">
+          <div id="nuWaterLeft"></div>
+        </BoxView>
+        <BoxView title="Екінші ретті зарядтардың релъефтегі таралуы"
+                 description="Eкінші ретті зарядтардың таралуы электромагниттік құбылыстарды түсіну мен модельдеуде шешуші рөл атқаратын, қолданылатын электр өрістерінің нәтижесінде бетінде немесе материал ішінде индукцияланған электр зарядтарының кеңістіктік орналасуы мен концентрациясын білдіреді..">
+          <div id="nuWaterRight"></div>
+        </BoxView>
+      </div>
       </div>
 
 <!--      <div id="XZsurface"></div>-->
 <!--      <div id="Roka"></div>-->
 <!--      <div id="nuxk"></div>-->
 <!--      <div id="nuxy"></div>-->
-<!--      <div id="nuWaterLeft"></div>-->
-<!--      <div id="nuWaterRight"></div>-->
+
+
     </div>
   </div>
   <el-drawer title="Ақпаратты енгізу" v-model="show" top="20px" size="40%">
