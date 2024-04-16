@@ -17,7 +17,7 @@ export default {
       <div class="sticky top-0 bg-white flex items-end justify-between py-2 w-full z-10 border border-b-1 border-red-300 px-40">
         <div class="flex items-center">
           <img src="@/assets/dam3.png" alt="Dams Logo" class="h-12 w-auto mr-2">
-          <h1 class="text-2xl font-semibold text-gray-800" style="color: #00467f">Дамбалар мен Бөгеттер</h1>
+          <h1 class="text-2xl font-semibold text-gray-800" style="color: #00467f">Дамбалар мен бөгеттер</h1>
         </div>
         <nav class="flex content-end text-sm font-bold navbar text-right" style="color: #00467f">
           <a href="#" class="mr-4 hover:text-blue-600 transition duration-300">Басты</a>
@@ -30,7 +30,7 @@ export default {
       <!-- Second Section -->
       <div class="flex justify-around w-full banner-wrapper px-40 py-10 text-start px-40" style=" ; min-height: 300px">
         <div class="banner-left ">
-          <h1 class="text-white font-semibold" style="font-size: 35px">Дамба мен бөгеттердің онлайн бақылау платформасы</h1>
+          <h1 class="text-white font-semibold" style="font-size: 35px">Дамба мен бөгеттерді электромониторингін математикалық моделдеу есебінің нақты уақыт мезетіндегі (в реальном режиме времени) платформасы</h1>
           <p class="text-sm" style="color: #d8ffce">Бөгеттердің электромониторингі гидротехникалық құрылыстардың жай-күйін нақты уақыт режимінде бақылауға мүмкіндік береді. Деректер қауіпсіздікті қамтамасыз ету бойынша жедел шешім қабылдауға мүмкіндік береді. Электромониторинг нәтижелерін визуализациялау үшін графиктер, диаграммалар және параметрлерді бөлетін карталар қолданылады. Бұл өзгерістер динамикасын жедел бағалауға мүмкіндік береді.</p>
           <div class="btn-area pt-5">
             <a href="#" @click="goToModel" class="bg-white text-blue-600 py-1.5 px-5 rounded-full hover:text-blue-800">Жобаға өту</a>
@@ -78,6 +78,10 @@ export default {
 
 div {
   font-family: "Helvetica", sans-serif;
+}
+
+a {
+  cursor: pointer;
 }
 
 .banner-wrapper {

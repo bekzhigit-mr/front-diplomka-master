@@ -1,11 +1,12 @@
 <template>
   <div class="highchart h-full" style="height: 100vh"><div class="sticky top-0 bg-white flex items-end justify-between py-3 w-full z-10 border border-b-1 border-red-300 px-40">
     <div class="bg-white">
+      <h4 class="text-gray-800 p-1">Дамба мен бөгеттерді электромониторингін математикалық моделдеу есебінің нақты уақыт мезетіндегі (в реальном режиме времени) платформасы.</h4>
       <h3 class="text-gray-700">{{ typeOfModel }} модель бойынша есептеу жүргізілді</h3>
       <p class="text-gray-500">Кіріс ақпараттар:
         <span v-for="item in inputLabels[typeOfModel]" :key="item.title">{{ item.title_kz }}</span>
       </p>
-    </div><div class="mt-3">
+    </div><div class="mt-3 px-2">
     <el-button @click="show=!show" type="success" size="small" round>Есептеуді бастау</el-button>
   </div>
   </div>
@@ -47,12 +48,12 @@
           </BoxView>
         </div>
         <div class="flex gap-x-5 mb-5">
-        <BoxView title="Зарядтардың таралу жиіліктігі"
-                 description="The зарядтың таралу жиілігі электр зарядының белгілі бір кеңістікте таралу немесе шоғырлану тәсілін білдіреді, көбінесе осы кеңістіктегі зарядтардың тығыздығы немесе орналасуы тұрғысынан сипатталады.">
+        <BoxView title="Зарядтардың сол жақ жоғарғы бьефтегі таралуы"
+                 description="">
           <div id="nuWaterLeft"></div>
         </BoxView>
-        <BoxView title="Екінші ретті зарядтардың релъефтегі таралуы"
-                 description="Eкінші ретті зарядтардың таралуы электромагниттік құбылыстарды түсіну мен модельдеуде шешуші рөл атқаратын, қолданылатын электр өрістерінің нәтижесінде бетінде немесе материал ішінде индукцияланған электр зарядтарының кеңістіктік орналасуы мен концентрациясын білдіреді..">
+        <BoxView title="Зарядтардың оң жақ төменгі бьефтегі таралуы"
+                 description="">
           <div id="nuWaterRight"></div>
         </BoxView>
       </div>
