@@ -268,7 +268,7 @@ export default {
     },
     async createAnyChart(id, chartData, title) {
       let colorScale = anychart.scales.linearColor();
-      colorScale.colors(['#00FF00', '#FFFF00', '#FF0000' ]);
+      colorScale.colors(['#9B59B6', '#2ECC71', '#E74C3C' ]);
       let chart = anychart.surface(chartData);
       chart.colorRange().enabled(true)
           .colorLineSize(10)
@@ -329,27 +329,27 @@ export default {
       xAxis = xAxis.sort((a, b) => a - b);
       let XZwater2 = {
         data: data.XZwater2.sort((a, b) => a[0] - b[0]),
-        color: 'blue',
+        color: '#8390FA',
         name: 'Төменгі бьеф (x, m)'
       };
       let XZwater = {
         data: data.XZwater.sort((a, b) => a[0] - b[0]),
-        color: 'blue',
+        color: '#8390FA',
         name: 'Жоғарғы бьеф (x, m)'
       };
       let firstChart = {
         data: data.XZsurface.sort((a, b) => a[0] - b[0]),
-        color: 'red',
+        color: '#26C485',
         name: 'Рельеф (x, m)'
       };
       let secondChart = {
         data: data.electrodes.sort((a, b) => a[0] - b[0]),
         name: 'Электродтар (x, m)',
-        color: 'yellow'
+        color: '#FFB30F'
       }
       let rokaChart = {
         data: data.Roka.sort((a, b) => a[0] - b[0]),
-        color: 'blue',
+        color: 'pink',
         name: 'Айқын кедергі қисығы (x, m)'
       }
       let xAxisRoka = data.Roka.map(k=> k[0]).sort((a, b) => a - b);
